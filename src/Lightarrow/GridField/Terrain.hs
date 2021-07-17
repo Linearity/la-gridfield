@@ -9,15 +9,15 @@ module Lightarrow.GridField.Terrain
             deleteElem,
             occupy          ) where
 
-import qualified Data.Map as M
+import qualified Data.Map.Strict as M
 import Data.Maybe
 import Lightarrow
 
 import Lightarrow.GridField.TerrainElement
 
 data Terrain p c = Terrain {
-                        tBackgroundColor :: Color,
-                        tElements :: M.Map (Int, Int) (TerrainElement p c)
+                        tBackgroundColor :: !Color,
+                        tElements :: !(M.Map (Int, Int) (TerrainElement p c))
                     }
 
 defaultTerrain = Terrain {

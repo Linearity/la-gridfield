@@ -1,7 +1,7 @@
 module Lightarrow.GridField.Actuation where
 
-import qualified Data.Map as M
 import Data.Foldable
+import Data.Map.Strict (foldlWithKey')
 import Data.Tree
 import Lightarrow
 import Linear
@@ -17,13 +17,13 @@ drawCharacter Character { cOutput = draw, cLocation = p }
 
 drawTerrainElement TerrainElement { teTile = Nothing }
     = mempty
-drawTerrainElement TerrainElement { teTile = Just (tile, orientation) }
+drawTerrainElement TerrainElement { teTile = Just (!tile, !orientation) }
     = drawTile tile orientation
 
-drawTerrain terrain = fold (mapWithIndices tiler (tElements terrain))
+drawTerrain terrain = foldlWithKey' tiler mempty (tElements terrain)
   where
-    tiler (r, c) element    = Node (Frame (place r c))
-                                [drawTerrainElement element]
+    tiler t (!r, !c) element  = t <> Node (Frame (place r c))
+                                        [drawTerrainElement element]
     place r c               = translate2 (V2    (fromIntegral $ 16 * c)
                                                 (fromIntegral $ 16 * r))
 

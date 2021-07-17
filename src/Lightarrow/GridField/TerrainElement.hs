@@ -26,10 +26,10 @@ class TerrainCode p where
 -- instances of these families are likely unrelated to platform implementations.
 data TerrainElement p c
     = TerrainElement {
-            teCollides     :: Bool,
-            teExpr         :: TerrainElementExpression p,
+            teCollides     :: !Bool,
+            teExpr         :: !(TerrainElementExpression p),
             teReactions    :: [c -> Event c],
-            teTile         :: Maybe (Bitmap p, DrawOrientation p)
+            teTile         :: !(Maybe (Bitmap p, DrawOrientation p))
         }
 
 defaultTerrainElement :: TerrainCode p => TerrainElement p c
