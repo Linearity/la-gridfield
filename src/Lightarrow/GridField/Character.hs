@@ -39,14 +39,14 @@ import Lightarrow.GridField.TerrainElement
 
 -- | Animated figure on the field that moves around
 data Character m b = Character {
-                            cAnimation  :: Animation m b,
-                            cDirection  :: CardinalDirection,
-                            cGaits      :: CharacterGaits m b,
-                            cIndex      :: Int,
-                            cLocation   :: Point V2 Double,
-                            cOutput     :: b,
-                            cSpeed      :: Double,
-                            cStances    :: CharacterStances m b
+                            cAnimation  :: !(Animation m b),
+                            cDirection  :: !CardinalDirection,
+                            cGaits      :: !(CharacterGaits m b),
+                            cIndex      :: !Int,
+                            cLocation   :: !(Point V2 Double),
+                            cOutput     :: !b,
+                            cSpeed      :: !Double,
+                            cStances    :: !(CharacterStances m b)
                         }
 
 instance Show (Character m b) where
@@ -62,18 +62,18 @@ type Animation m b = SF m () b
 
 -- | Walking animations for a character
 data CharacterGaits m b = CharacterGaits {
-                                cgEastGait      :: Animation m b,
-                                cgNorthGait     :: Animation m b,
-                                cgSouthGait     :: Animation m b,
-                                cgWestGait      :: Animation m b
+                                cgEastGait      :: !(Animation m b),
+                                cgNorthGait     :: !(Animation m b),
+                                cgSouthGait     :: !(Animation m b),
+                                cgWestGait      :: !(Animation m b)
                             }
 
 -- | Standing animations for a character
 data CharacterStances m b = CharacterStances {
-                                    cgEastStance    :: Animation m b,
-                                    cgNorthStance   :: Animation m b,
-                                    cgSouthStance   :: Animation m b,
-                                    cgWestStance    :: Animation m b
+                                    cgEastStance    :: !(Animation m b),
+                                    cgNorthStance   :: !(Animation m b),
+                                    cgSouthStance   :: !(Animation m b),
+                                    cgWestStance    :: !(Animation m b)
                                 }
 
 type BusEnv a m = (MonadReader a m, MonadWriter a m, Monoid a)

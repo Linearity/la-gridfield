@@ -29,7 +29,6 @@ avatar terr0
         = do    a0 <- gets (view avatarState)
                 loop (faceForward a0)
     where   loop a  = do    (_, a') <- avatarStop terr0 a
-                                        & avatarDraw terr0
                             loop a'
 
 type AvatarTypes cue location platform prose state
